@@ -1,4 +1,5 @@
-const express = require("express")  //iniciandoo express
+const express = require("express")  //iniciandoo express para dar propriedades de servidor para o projeto
+const  { v4: uuidv4 } = require('uuid') //iniciando o uuid para gerar ids unicos para cada mulher
 
 const router = express.Router() //configurando a primeira parte da rota
 
@@ -36,11 +37,13 @@ function mostraMulheres(request, response){
 //POST
 function criaMulher(request, response){
     const novaMulher = {
-        id: '',
-        nome:'',
-        imagem:'',
-        minibio:''
+        id: uuidv4(),
+        nome:request.body.nome,
+        imagem:request.body.imagem,
+        minibio:request.body.minibio
     }
+    mulheres.push(novaMulher) //acrescenta a nova mulher na lista de mulheres
+    response.json(mulheres) //retorna a lista de mulheres atualizada
 }
 
 //PORTA
@@ -49,5 +52,6 @@ function mostraPorta(){
 }
 
 app.use(router.get('/mulheres', mostraMulheres)) //configurei rota GET /mulheres
+app.use(router.post('/mulheres', criaMulher)) //configurei rota POST /mulheres
 app.listen(porta, mostraPorta) //servidor ouvindo a porta
 //após ouvir a porta, chama a função mostraPorta
