@@ -6,6 +6,8 @@ const router = express.Router() //configurando a primeira parte da rota
 const app = express() //iniciando o app
 // app recebe a chamada da função express
 
+app.use(express.json()) //os dados que trafegarem pela requisição serão convertidos em json
+
 const porta = 3333 //criando a porta
 
 //criando lista inicial de mulheres
@@ -38,9 +40,9 @@ function mostraMulheres(request, response){
 function criaMulher(request, response){
     const novaMulher = {
         id: uuidv4(),
-        nome:request.body.nome,
-        imagem:request.body.imagem,
-        minibio:request.body.minibio
+        nome: request.body.nome,
+        imagem: request.body.imagem,
+        minibio: request.body.minibio
     }
     mulheres.push(novaMulher) //acrescenta a nova mulher na lista de mulheres
     response.json(mulheres) //retorna a lista de mulheres atualizada
