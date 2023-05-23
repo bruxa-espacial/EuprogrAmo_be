@@ -48,6 +48,30 @@ function criaMulher(request, response){
     response.json(mulheres) //retorna a lista de mulheres atualizada
 }
 
+//PATCH
+function corrigeMulher(request, response){
+    
+    function encontraMulher(mulher){
+        if (mulher.id === request.params.id){
+            return mulher
+        }
+    }
+
+    const mulherEncontrada = mulheres.find(encontraMulher)
+
+    if (request.body.nome){
+        mulherEncontrada.nome = request.body.nome
+    }
+    if (request.body.imagem){
+        mulherEncontrada.imagem = request.body.imagem
+    }
+    if (request.body.minibio){
+        mulherEncontrada.minibio = request.body.minibio
+    }
+
+    response.json(mulheres)
+}
+
 //PORTA
 function mostraPorta(){
     console.log("Servidor criado e rodando na porta ", porta)
