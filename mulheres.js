@@ -52,13 +52,14 @@ function criaMulher(request, response){
 function corrigeMulher(request, response){
     
     function encontraMulher(mulher){
-        if (mulher.id === request.params.id){
+        if (mulher.id === request.params.id){ //encontra a mulher pelo ID
             return mulher
         }
     }
 
-    const mulherEncontrada = mulheres.find(encontraMulher)
+    const mulherEncontrada = mulheres.find(encontraMulher) //.find serve para encontrar e retornar dados de num array
 
+    // se os dados forem alterados, substitui os dados antigos pelos novos:
     if (request.body.nome){
         mulherEncontrada.nome = request.body.nome
     }
@@ -69,15 +70,32 @@ function corrigeMulher(request, response){
         mulherEncontrada.minibio = request.body.minibio
     }
 
-    response.json(mulheres)
+    response.json(mulheres) //envio da respsta (retorna a lista de mulheres atualizada)
 }
+
+//DELETE
+function deletaMulher(request, response){
+    function todasMenosEla(mulher){
+        if (mulher.id !== request.params.id){
+            return mulher
+        }
+    }
+
+    const mulheresQueFicam = mulheres.filter(todasMenosEla) //filtra a lista de mulheres e retorna todas menos a que foi deletada
+
+    response.json(mulheresQueFicam) //envio da resposta (retorna a lista de mulheres atualizada)
+}
+
+//ROTAS
+app.use(router.get('/mulheres', mostraMulheres)) //configurei rota GET /mulheres
+app.use(router.post('/mulheres', criaMulher)) //configurei rota POST /mulheres
+app.use(router.patch('/mulheres/:id', corrigeMulher)) //configurei rota PATCH /mulheres/:id (id da mulher que será alterada)
+app.use(router.delete('/mulheres/:id', deletaMulher)) //configurei rota DELETE /mulheres/:id (id da mulher que será deletada)
 
 //PORTA
 function mostraPorta(){
     console.log("Servidor criado e rodando na porta ", porta)
 }
 
-app.use(router.get('/mulheres', mostraMulheres)) //configurei rota GET /mulheres
-app.use(router.post('/mulheres', criaMulher)) //configurei rota POST /mulheres
 app.listen(porta, mostraPorta) //servidor ouvindo a porta
 //após ouvir a porta, chama a função mostraPorta
