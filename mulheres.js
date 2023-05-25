@@ -17,8 +17,7 @@ const mulheres = [
         nome: 'Simara Conceição',
         imagem: 'https://github.com/simaraconceicao.png',
         minibio: 'Desenvolvedora e instrutora'
-    },
-    {
+    },{
         id: '2',
         nome: 'Iana Chan',
         imagem: 'https://bit.ly/3JCXBqP',
