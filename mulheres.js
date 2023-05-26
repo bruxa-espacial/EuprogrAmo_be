@@ -1,7 +1,9 @@
 const express = require("express")  //iniciandoo express para dar propriedades de servidor para o projeto
 const  { v4: uuidv4 } = require('uuid') //iniciando o uuid para gerar ids unicos para cada mulher
-
 const router = express.Router() //configurando a primeira parte da rota
+const conectaBancoDeDados = require('./bancoDeDados') //importando o banco de dados
+
+conectaBancoDeDados() //chamando a função que conecta o banco de dados
 
 const app = express() //iniciando o app
 // app recebe a chamada da função express
