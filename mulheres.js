@@ -34,6 +34,7 @@ async function criaMulher(request, response){
 
     try {
         const mulherCriada = await novaMulher.save() //espera a conexão acontecer e, quando conseguir, salva a nova mulher no banco de dados
+        //função save() guarda o resultado na constante e envia esse objto na resposta da requisição
         response.status(201).json(mulherCriada) //envio da resposta (retorna a nova mulher criada)
     } catch (erro) {
         console.log(erro)
